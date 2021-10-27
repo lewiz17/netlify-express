@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
   res.end();
 });
 
-app.get('/v/:id', cors(), function (req, res) {
+router.get('/v/:id', cors(), function (req, res) {
 
   const fileId = req.params.id;
 
@@ -25,7 +25,7 @@ app.get('/v/:id', cors(), function (req, res) {
             "r": "",
             "d": "www.fembed.com"
           });
-          res.redirect(resp.data.data[0].file);
+          res.json({source: resp.data.data});
           console.log(resp.data);
       } catch (err) {
           // Handle Error Here

@@ -7,13 +7,8 @@ const axios = require('axios');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
-    
 
-app.get('/', (req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.write('<h1>Enjoy!</h1>');
-  res.end();
-});
+app.get('/', (req, res) => res.send('Home Page Route'));
 
 app.get('/v/:id', cors(), function (req, res) {
 

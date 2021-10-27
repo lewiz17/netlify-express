@@ -17,13 +17,15 @@ router.get('/', (req, res) => {
 
 router.get('/v/:id', cors(), function (req, res) {
 
+  const referer = req.headers.referer;
   const fileId = req.params.id;
+  const domain =  req.get('host');
 
   const sendGetRequest = async () => {
       try {
           const resp = await axios.post('https://www.fembed.com/api/source/'+fileId, {
-            "r": "",
-            "d": "www.fembed.com"
+            "r": referer,
+            "d": domain
           });
           res.json({source: resp.data.data});
           console.log(resp.data);

@@ -8,14 +8,14 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
     
-const router = express.Router();
-router.get('/', (req, res) => {
+
+app.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.write('<h1>Enjoy!</h1>');
   res.end();
 });
 
-router.get('/v/:id', cors(), function (req, res) {
+app.get('/v/:id', cors(), function (req, res) {
 
   const referer = req.headers.referer;
   const fileId = req.params.id;
@@ -38,12 +38,13 @@ router.get('/v/:id', cors(), function (req, res) {
   sendGetRequest();
 
 })
-
-
-
 app.use(bodyParser.json());
-app.use('/.netlify/functions/server', router);  // path must route to lambda
-app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
+
+
+//app.use('/.netlify/functions/server', router);  // path must route to lambda
+//app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
+/*
 module.exports.handler = serverless(app);
+*/

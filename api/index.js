@@ -1,16 +1,31 @@
 const app = require('express')();
-const { v4 } = require('uuid');
+const axios = require('axios');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const { json } = require('body-parser');
+    
+app.get('/api/v/:id', cors(), function (req, res) {
 
-app.get('/api', (req, res) => {
-  const path = `/api/item/${v4()}`;
-  res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
-  res.end(`Hello! Go to item: <a href="${path}">${path}</a>`);
-});
+  const fileId = req.params.id;
 
-app.get('/api/item/:slug', (req, res) => {
-  const { slug } = req.params;
-  res.end(`Item: ${slug}`);
-});
+  const sendGetRequest = async () => {
+      try {
+          const resp = await axios.post('https://www.fembed.com/api/source/'+fileId, {
+            "r": "",
+            "d": "www.fembed.com"
+          });
+          res.json({source: resp.data.data});
+          console.log(resp.data);
+      } catch (err) {
+          // Handle Error Here
+          console.error(err);
+      }
+  };
+
+  sendGetRequest();
+
+})
+
+app.use(bodyParser.json());
 
 module.exports = app;

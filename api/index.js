@@ -3,19 +3,20 @@ const axios = require('axios');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
+const port = 3000;
     
-app.get('/api/v/:id', cors(), function (req, res) {
+app.get('/api/v/:id', function (req, res) {
 
   const fileId = req.params.id;
 
   const sendGetRequest = async () => {
       try {
           const resp = await axios.post('https://www.fembed.com/api/source/'+fileId, {
-            "r": "",
-            "d": "www.fembed.com"
+            r: req.headers.referer,
+			d: req.hostname
           });
-          res.json({source: resp.data.data});
-          console.log(resp.data);
+          res.json({source: resp.data});
+          console.log('data file:',resp.data);
       } catch (err) {
           // Handle Error Here
           console.error(err);
@@ -27,5 +28,7 @@ app.get('/api/v/:id', cors(), function (req, res) {
 })
 
 app.use(bodyParser.json());
-
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+})
 module.exports = app;

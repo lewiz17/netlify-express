@@ -4,7 +4,8 @@
   "description": "Example of how to deploy a Express.js Netlify app.",
   "main": "index.js",
   "scripts": {
-    "start": "node api/index.js"
+    "start": "node api/index.js",
+    "build": "nodemon api/index.js"
   },
   "repository": {
     "type": "git",

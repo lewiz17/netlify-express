@@ -1,0 +1,32 @@
+.wrapper{
+    margin: 0 auto;
+    max-width: 80%;
+}
+.wrapper *{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.wrapper .title{
+    text-transform: capitalize;
+    color: #00a0bb;
+   
+}
+#player{
+    margin: 0px auto;
+    width: 100%;
+    height: 20em;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#player video{
+    max-width: 100%;
+    height: 100%;
+    background: #000;
+}
+
+.back{
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}

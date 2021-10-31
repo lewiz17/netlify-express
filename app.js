@@ -11,17 +11,7 @@ const { dirname } = require('path');
 const port = 3000;
 const fs = require('fs');
 
-app.use(cors());
-
-var router = express.Router();
-
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-
 app.use("/assets", express.static("public"))
-
-// apply the routes to our application
-app.use('/', router);
 
 app.get('/', function (req, res) {
     res.redirect('/list');

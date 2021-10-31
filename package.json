@@ -2,10 +2,10 @@
   "name": "netlify-express",
   "version": "0.0.1",
   "description": "Example of how to deploy a Express.js Netlify app.",
-  "main": "api/index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node api/index.js",
-    "build": "nodemon api/index.js"
+    "start": "node app",
+    "build": "nodemon app"
   },
   "repository": {
     "type": "git",

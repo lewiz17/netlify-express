@@ -8,16 +8,22 @@ const parseurl = require('parseurl');
 const bodyParser = require('body-parser');
 const { json } = require('body-parser');
 const { dirname } = require('path');
-const port = 3000;
 const fs = require('fs');
 
+const PORT = process.env.PORT || 3000;
+
+const router = express.Router();
+
+app.use('/', router);
+
 app.use("/assets", express.static("public"))
+
 
 app.get('/', function (req, res) {
     res.redirect('/list');
 });
 
-app.get('/api/v2/:id', function (req, res) {
+router.get('/api/v2/:id', function (req, res) {
     const fileId = req.params.id;
 
     const sendGetRequest = async () => {
@@ -37,7 +43,7 @@ app.get('/api/v2/:id', function (req, res) {
     sendGetRequest();
 })
 
-app.get('/api/v/:id', function (req, res) {
+router.get('/api/v/:id', function (req, res) {
 
   const fileId = req.params.id;
 
@@ -66,7 +72,7 @@ app.get('/items', function(req, res) {
 })
 
 
-app.get("/poster/:movie", async (req, res) => {
+router.get("/poster/:movie", async (req, res) => {
     const nameMovie = req.params.movie;
     const api = 'https://www.omdbapi.com/?apikey=a0b83e2d&t=';
     const api2 = 'https://api.themoviedb.org/3/search/movie?api_key=feb6f0eeaa0a72662967d77079850353&query=';
@@ -87,9 +93,11 @@ app.get("/poster/:movie", async (req, res) => {
     
 })
 
-app.post("/send", async (req, res) => {
+router.post("/send", async (req, res) => {
+    console.log(req);
+
     let formData = {
-        id: uuid.v1(),
+        id: uuid.v4(),
         name: req.body.name,
         file: req.body.file_id,
         poster: '/poster/'+encodeURIComponent(req.body.name)
@@ -118,7 +126,7 @@ app.post("/send", async (req, res) => {
 app.get('/open/:id', function(req, res) {
     const videoId = req.params.id;
     const name = req.query.name;
-    res.redirect('/api/v2/'+videoId+'?name='+name);
+    res.redirect('/api/v/'+videoId+'?name='+name);
 });
 
 app.get('/add', function(req, res) {
@@ -130,7 +138,8 @@ app.get('/list', function(req, res) {
 });
 
 
-const PORT = process.env.PORT || 3000;
+
+
 app.listen(PORT, () => {
     console.log(`Our app is running on port ${ PORT }`);
 });
